@@ -1,7 +1,7 @@
 # Attestazione di sostenimento esame per studenti lavoratori
 
 [![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
-
+[![Compilation_Test](https://github.com/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/actions/workflows/Compilation_Test.yml/badge.svg)](https://github.com/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/actions/workflows/Compilation_Test.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/73365fa153d748d1beda5172ac38806d)](https://app.codacy.com/gh/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/R0mb0/Italian_Manuscripts_Kraken_OCR_Report)
