@@ -12,10 +12,10 @@ jobs:
       - name: Compile files
         uses: xu-cheng/latex-action@v4
         with:
-          working_directory: Report/Report
-          root_file: Report.tex
+          working_directory: Document
+          root_file: Document.tex
       - name: Upload compiled file
         uses: actions/upload-artifact@v6
         with: 
-          name: Analysis_of_Italys_PNRR_Cloud_Infrastructure_and_the_PSN
-          path: Report/Report/Report.pdf
+          name: Document
+          path: Document/Document.pdf
