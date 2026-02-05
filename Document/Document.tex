@@ -1,0 +1,143 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\graphicspath{{Loghi}}
+\usepackage{tabularx}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=black, citecolor=black]{hyperref}
+\usepackage[none]{hyphenat}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\usepackage{hyperref}
+
+\begin{document}
+	
+	% Remove page number
+	\pagestyle{empty}
+	
+	\begin{center}
+		\Large
+		\textbf{Modulo giustificativo assenza dal lavoro per partecipare alla seduta d'esame}
+	\end{center}
+	
+	\vspace*{1cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Docente}
+		}&{
+			\TextField[name=Docente,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Insegnamento}
+		}&{
+			\TextField[name=Insegnamento,width=\linewidth]{}\newline
+			\TextField[name=Insegnamento1,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Si dichiara che lo studente}
+		}&{
+			\TextField[name=Studente,width=\linewidth]{}\newline
+			\TextField[name=Studente1,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Matricola}
+		}&{
+			\TextField[name=Matricola,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Matricola}
+		}&{
+			\TextField[name=Matricola,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{iscritto al Corso di Laurea in}
+		}&{
+			\TextField[name=Corso,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{ha sostenuto in data odierna l’esame di}
+		}&{
+			\TextField[name=Esame,width=\linewidth]{}\newline
+			\TextField[name=Esame1,width=\linewidth]{}\newline
+			\TextField[name=Esame1,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{presso la sede}
+		}&{
+			\TextField[name=Sede,width=\linewidth]{}\newline
+			\TextField[name=Sede1,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{altro}
+		}&{
+			\TextField[name=Altro,width=\linewidth]{}\newline
+			\TextField[name=Altro1,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{1cm}
+	
+	\TextField[name=li,width=3cm]{} lì 	\TextField[name=li,width=5cm]{}
+	
+	\vspace*{1cm}
+	
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		{
+			\textbf{Firma del Docente}
+		}&{
+			\TextField[name=Docente,width=\linewidth]{}
+		}
+	\end{tabularx}
+	
+	\vspace*{1cm}
+	
+	\begin{minipage}{\linewidth}
+		\textbf{N.B. Il presente modulo deve essere compilato a cura dello studente e convalidato da un
+			docente del Corso di Laurea di appartenenza, per gli usi consentiti.}
+	\end{minipage}
+	
+\end{document}
