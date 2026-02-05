@@ -11,15 +11,20 @@
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \geometry{margin=2cm}
+\usepackage{tikz}
 
-% Campo compilabile + riga puntinata stampabile
+% Campo compilabile + riga tratteggiata stampabile SOTTO il bordo inferiore
 % #1 = opzioni per \TextField (es. name=Docente)
 % #2 = testo (di solito vuoto: {})
 \newcommand{\PrintableField}[2][]{%
-	% riga stampabile
-	\noindent\dotfill\par
-	% campo PDF (sopra o subito dopo la riga)
-	\TextField[#1,width=\linewidth]{#2}%
+	\begin{tikzpicture}[remember picture,baseline=(field.base)]
+		% Nodo "field" che contiene il TextField
+		\node[inner sep=0pt,outer sep=0pt,anchor=base west] (field)
+		{\TextField[#1,width=\linewidth]{#2}};
+		% Riga tratteggiata sul bordo inferiore del campo
+		\draw[densely dotted]
+		(field.south west) -- (field.south east);
+	\end{tikzpicture}%
 }
 
 % Campo con riga stampabile sotto, a larghezza fissa
