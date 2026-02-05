@@ -11,7 +11,33 @@
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \geometry{margin=2cm}
-\usepackage{hyperref}
+
+% Campo compilabile + riga puntinata stampabile
+% #1 = opzioni per \TextField (es. name=Docente)
+% #2 = testo (di solito vuoto: {})
+\newcommand{\PrintableField}[2][]{%
+	% riga stampabile
+	\noindent\dotfill\par
+	% campo PDF (sopra o subito dopo la riga)
+	\TextField[#1,width=\linewidth]{#2}%
+}
+
+% Campo con riga stampabile sotto, a larghezza fissa
+% #1 = opzioni (es. name=LiData)
+% #2 = larghezza (es. 3cm)
+\newcommand{\FixedPrintableField}[2]{%
+	\TextField[#1,width=#2]{}% campo PDF
+	\\[-0.3ex]% piccolissimo spazio verso l'alto
+	\rule{#2}{0.4pt}% riga continua di stessa larghezza
+}
+
+% Campo a larghezza fissa con riga sotto, ma senza alterare il layout:
+% in modalità "schermo" mostriamo solo il TextField (come fai già),
+% in stampa aggiungiamo la riga.
+\newcommand{\PrintLine}[1]{%
+	% #1 = larghezza (es. 3cm)
+	\leavevmode\rule{#1}{0.4pt}%
+}
 
 \begin{document}
 	
@@ -26,112 +52,80 @@
 	\vspace*{1cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Docente}
-		}&{
-			\TextField[name=Docente,width=\linewidth]{}
-		}
+		\textbf{Docente} &
+		\PrintableField[name=Docente]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Insegnamento}
-		}&{
-			\TextField[name=Insegnamento,width=\linewidth]{}\newline
-			\TextField[name=Insegnamento1,width=\linewidth]{}
-		}
+		\textbf{Insegnamento} &
+		\PrintableField[name=Insegnamento]{}\newline
+		\PrintableField[name=Insegnamento1]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Si dichiara che lo studente}
-		}&{
-			\TextField[name=Studente,width=\linewidth]{}\newline
-			\TextField[name=Studente1,width=\linewidth]{}
-		}
+		\textbf{Si dichiara che lo studente} &
+		\PrintableField[name=Studente]{}\newline
+		\PrintableField[name=Studente1]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Matricola}
-		}&{
-			\TextField[name=Matricola,width=\linewidth]{}
-		}
+		\textbf{Matricola} &
+		\PrintableField[name=Matricola]{}
+	\end{tabularx}
+	
+	\vspace*{0.2cm}
+	
+	% secondo "Matricola" (se ti serve)
+	\begin{tabularx}{\linewidth}{@{}lX@{}}
+		\textbf{Matricola} &
+		\PrintableField[name=Matricola2]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Matricola}
-		}&{
-			\TextField[name=Matricola,width=\linewidth]{}
-		}
+		\textbf{iscritto al Corso di Laurea in} &
+		\PrintableField[name=Corso]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{iscritto al Corso di Laurea in}
-		}&{
-			\TextField[name=Corso,width=\linewidth]{}
-		}
+		\textbf{ha sostenuto in data odierna l’esame di} &
+		\PrintableField[name=Esame]{}\newline
+		\PrintableField[name=Esame1]{}\newline
+		\PrintableField[name=Esame2]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{ha sostenuto in data odierna l’esame di}
-		}&{
-			\TextField[name=Esame,width=\linewidth]{}\newline
-			\TextField[name=Esame1,width=\linewidth]{}\newline
-			\TextField[name=Esame1,width=\linewidth]{}
-		}
+		\textbf{presso la sede} &
+		\PrintableField[name=Sede]{}\newline
+		\PrintableField[name=Sede1]{}
 	\end{tabularx}
 	
 	\vspace*{0.2cm}
 	
 	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{presso la sede}
-		}&{
-			\TextField[name=Sede,width=\linewidth]{}\newline
-			\TextField[name=Sede1,width=\linewidth]{}
-		}
-	\end{tabularx}
-	
-	\vspace*{0.2cm}
-	
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{altro}
-		}&{
-			\TextField[name=Altro,width=\linewidth]{}\newline
-			\TextField[name=Altro1,width=\linewidth]{}
-		}
+		\textbf{altro} &
+		\PrintableField[name=Altro]{}\newline
+		\PrintableField[name=Altro1]{}
 	\end{tabularx}
 	
 	\vspace*{1cm}
 	
-	\TextField[name=li,width=3cm]{} lì 	\TextField[name=li,width=5cm]{}
+	% riga dei campi "lì"
+	\TextField[name=liData,width=3cm]{} lì \TextField[name=liLuogo,width=5cm]{}
 	
-	\vspace*{1cm}
-	
-	\begin{tabularx}{\linewidth}{@{}lX@{}}
-		{
-			\textbf{Firma del Docente}
-		}&{
-			\TextField[name=Docente,width=\linewidth]{}
-		}
-	\end{tabularx}
+	% riga stampabile sotto (stesso layout)
+	\PrintLine{3cm}\hspace{1.5em}\PrintLine{5cm}
 	
 	\vspace*{1cm}
 	
