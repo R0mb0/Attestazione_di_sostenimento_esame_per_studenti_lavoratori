@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this template, please cite it as below."
+authors:
+- family-names: "Rombaldoni"
+  given-names: "Francesco"
+title: "Attestazione_di_sostenimento_esame_per_studenti_lavoratori"
+version: 1.0.0
+date-released: 2026-02-05
+url: "https://github.com/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori"
