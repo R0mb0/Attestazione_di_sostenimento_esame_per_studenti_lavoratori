@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>PDF Viewer</title>
+
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="./app.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="titles">
+        <div class="title">PDF Viewer</div>
+        <div class="subtitle" id="subtitle">Caricamento…</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn ghost" id="downloadBtn" href="./Document.pdf" download>
+        Download
+      </a>
+      <a class="btn" id="openNewTabBtn" href="./Document.pdf" target="_blank" rel="noopener">
+        Apri in nuova scheda
+      </a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="card">
+      <div class="cardHeader">
+        <div class="status" id="statusPill" role="status" aria-live="polite">
+          Verifica file…
+        </div>
+
+        <div class="hint">
+          Se non vedi l’anteprima, prova “Apri in nuova scheda” oppure scarica il file.
+        </div>
+      </div>
+
+      <div class="viewerWrap" id="viewerWrap">
+        <!-- Visualizzazione primaria: iframe (PDF viewer del browser) -->
+        <iframe
+          id="pdfFrame"
+          class="pdfFrame"
+          title="Anteprima PDF"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          sandbox="allow-same-origin allow-scripts allow-downloads"
+        ></iframe>
+
+        <!-- Overlay di caricamento -->
+        <div class="overlay" id="overlay" aria-hidden="true">
+          <div class="spinner" aria-hidden="true"></div>
+          <div class="overlayText">
+            <div class="overlayTitle">Caricamento PDF</div>
+            <div class="overlaySubtitle">Attendi qualche secondo…</div>
+          </div>
+        </div>
+
+        <!-- Fallback / errore -->
+        <div class="fallback" id="fallback" hidden>
+          <div class="fallbackTitle">Impossibile mostrare l’anteprima</div>
+          <p class="fallbackText" id="fallbackText">
+            Il browser potrebbe non supportare l’anteprima integrata oppure il file non è raggiungibile.
+          </p>
+
+          <div class="fallbackActions">
+            <a class="btn" href="./Document.pdf" target="_blank" rel="noopener">Apri PDF</a>
+            <a class="btn ghost" href="./Document.pdf" download>Download</a>
+          </div>
+
+          <div class="techBox">
+            <div class="techTitle">Dettagli tecnici</div>
+            <pre class="techPre" id="techPre">—</pre>
+          </div>
+        </div>
+      </div>
+
+      <footer class="cardFooter">
+        <div class="small">
+          File: <span class="mono">Document.pdf</span>
+        </div>
+        <div class="small">
+          Tema: <span class="mono" id="themeLabel">auto</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
