@@ -14,24 +14,19 @@
   const downloadBtn = document.getElementById("downloadBtn");
   const openNewTabBtn = document.getElementById("openNewTabBtn");
 
-  // --- Theme label (auto) ---
+  // Theme label
   const mql = window.matchMedia?.("(prefers-color-scheme: dark)");
   const setThemeLabel = () => {
-    if (!mql) {
-      themeLabel.textContent = "auto";
-      return;
-    }
+    if (!mql) return (themeLabel.textContent = "auto");
     themeLabel.textContent = mql.matches ? "scuro (auto)" : "chiaro (auto)";
   };
   setThemeLabel();
   mql?.addEventListener?.("change", setThemeLabel);
 
-  // --- Helpers ---
   const showOverlay = (show) => overlay.toggleAttribute("hidden", !show);
 
   const setStatus = (text, kind = "neutral") => {
     statusPill.textContent = text;
-    // Colori “pill” con bordo in base allo stato
     const map = {
       neutral: "var(--border)",
       ok: "color-mix(in srgb, var(--ok) 55%, var(--border))",
@@ -41,98 +36,90 @@
     statusPill.style.borderColor = map[kind] ?? map.neutral;
   };
 
+  const hideFallback = () => {
+    fallback.hidden = true;
+    pdfFrame.style.visibility = "visible";
+  };
+
   const showFallback = (message, details = "") => {
     fallback.hidden = false;
     pdfFrame.style.visibility = "hidden";
     showOverlay(false);
-
     fallbackText.textContent = message;
     techPre.textContent = details || "Nessun dettaglio disponibile.";
     setStatus("Anteprima non disponibile", "bad");
     subtitle.textContent = "Errore di visualizzazione";
   };
 
-  // --- Robust check: HEAD request (se servito via HTTP) ---
-  const canUseFetch = typeof fetch === "function";
-
   async function headCheck(url) {
-    // Quando apri index.html via file:// molti browser bloccheranno fetch/HEAD verso file://.
-    // In quel caso saltiamo la verifica e proviamo direttamente a caricare l'iframe.
-    if (!canUseFetch) return { ok: true, note: "fetch non disponibile" };
-
-    const isFileProtocol = location.protocol === "file:";
-    if (isFileProtocol) return { ok: true, note: "file:// (verifica HEAD saltata)" };
+    // Su file:// la HEAD non è affidabile: saltiamo.
+    if (location.protocol === "file:") return { ok: true, note: "file:// (HEAD saltata)" };
 
     try {
       const res = await fetch(url, { method: "HEAD", cache: "no-store" });
       const ct = res.headers.get("content-type") || "";
-      return {
-        ok: res.ok,
-        status: res.status,
-        contentType: ct,
-      };
+      return { ok: res.ok, status: res.status, contentType: ct };
     } catch (err) {
       return { ok: false, error: String(err) };
     }
   }
 
-  // --- Init ---
   async function init() {
     subtitle.textContent = "Document.pdf";
     downloadBtn.href = PDF_FILE;
     openNewTabBtn.href = PDF_FILE;
 
-    fallback.hidden = true;
-    pdfFrame.style.visibility = "visible";
-
+    hideFallback();
     showOverlay(true);
     setStatus("Verifica file…", "neutral");
 
     const check = await headCheck(PDF_FILE);
-
     if (check.ok === false) {
       showFallback(
-        "Non riesco a raggiungere il PDF. Controlla che Document.pdf esista nella stessa cartella e che tu stia servendo la pagina con un server.",
+        "Non riesco a raggiungere il PDF. Controlla che Document.pdf esista e che GitHub Pages lo stia servendo correttamente.",
         JSON.stringify(check, null, 2)
       );
       return;
     }
 
-    // Se HEAD ok ma content-type non è pdf, avviso (non blocco).
-    if (check.contentType && !check.contentType.includes("pdf")) {
+    if (check.contentType && !check.contentType.toLowerCase().includes("pdf")) {
       setStatus("PDF trovato (content-type non standard)", "warn");
     } else {
       setStatus("PDF pronto", "ok");
     }
 
-    // Carica nell'iframe: aggiungo #view=FitH per un fit orizzontale iniziale.
-    // (Questo è supportato da molti viewer nativi, ma non tutti. Non è critico.)
     const viewerUrl = `${PDF_FILE}#view=FitH`;
     pdfFrame.src = viewerUrl;
 
-    // Se l’iframe non “load-a” entro un timeout, mostro fallback.
-    const TIMEOUT_MS = 9000;
-    let settled = false;
+    // Timeout SOLO se l'iframe non fa load
+    const TIMEOUT_MS = 12000;
+    let loaded = false;
 
     const timeout = window.setTimeout(() => {
-      if (settled) return;
-      settled = true;
+      if (loaded) return;
+
       showFallback(
-        "Timeout nel caricamento dell’anteprima. Il browser potrebbe bloccare l’embed oppure il file è grande/lento.",
-        `Timeout ${TIMEOUT_MS}ms\nProtocollo: ${location.protocol}\nURL iframe: ${viewerUrl}\nHEAD: ${JSON.stringify(check, null, 2)}`
+        "L’anteprima non si è caricata in tempo. Su alcuni browser (soprattutto mobile/Safari) l’embed PDF può essere limitato: usa “Apri in nuova scheda”.",
+        `Timeout ${TIMEOUT_MS}ms
+Protocollo: ${location.protocol}
+User-Agent: ${navigator.userAgent}
+URL iframe: ${viewerUrl}
+HEAD: ${JSON.stringify(check, null, 2)}`
       );
     }, TIMEOUT_MS);
 
-    pdfFrame.addEventListener("load", () => {
-      if (settled) return;
-      settled = true;
-      window.clearTimeout(timeout);
-      showOverlay(false);
-      setStatus("Anteprima caricata", "ok");
-      subtitle.textContent = "Anteprima pronta";
-    });
-
-    // Nota: error event su iframe non è affidabile cross-browser, quindi il timeout è la parte “solida”.
+    pdfFrame.addEventListener(
+      "load",
+      () => {
+        loaded = true;
+        window.clearTimeout(timeout);
+        showOverlay(false);
+        hideFallback();
+        setStatus("Anteprima caricata", "ok");
+        subtitle.textContent = "Anteprima pronta";
+      },
+      { once: true }
+    );
   }
 
   init();
