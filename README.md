@@ -22,14 +22,9 @@ Modulo giustificativo assenza dal lavoro per partecipare alla seduta d’esame.
 
 ---
 <div align="center">
-<details>
-<summary>
 
-## 👉 Preview
-
-</summary>
+## 👉 Preview 👈
 
 [![Preview](https://github.com/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/blob/main/Readme_Imgs/0.png?raw=true)](https://r0mb0.github.io/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/)
 
-</details>
 </div>
