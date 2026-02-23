@@ -28,3 +28,11 @@ Modulo giustificativo assenza dal lavoro per partecipare alla seduta d’esame.
 [![Preview](https://github.com/R0mb0/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/blob/main/Readme_Imgs/0.png?raw=true)](https://r0mb0.github.io/Attestazione_di_sostenimento_esame_per_studenti_lavoratori/)
 
 </div>
+
+  <a href="https://github.com/R0mb0/Not_made_by_AI">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/R0mb0/Not_made_by_AI/blob/main/Badge/SVG/NotMadeByAIDark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/R0mb0/Not_made_by_AI/blob/main/Badge/SVG/NotMadeByAILight.svg">
+    <img alt="Not made by AI" src="https://github.com/R0mb0/Not_made_by_AI/blob/main/Badge/SVG/NotMadeByAIDefault.svg">
+  </picture>
+</a>
